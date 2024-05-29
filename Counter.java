@@ -72,21 +72,10 @@ public class Counter {
 							} else {
 								result.put(bigram, result.get(bigram) + 1);
 							}
-//							int index = bigrams.indexOf(bigram);
-//							if (index == -1) {
-//								bigrams.add(bigram);
-//								count.add(1);
-//							}
-//							else {
-//								count.set(index, count.get(index) + 1);
-//							}
 						}
 					}
 				}				
 			}
-//			LinkedList[] result = new LinkedList[2];
-//			result[0] = bigrams;
-//			result[1] = count;
 			return result;
 			
 		}
@@ -110,10 +99,10 @@ public class Counter {
 	 * index #1 of the array should hold the number of occurrences of 'b',
 	 * and so on.
 	 */
-	public static Map<Character, Integer> countLetters(String filename) {
+	public static int[] countLetters(String filename) {
 		
-		Map<Character, Integer> letterCount = new HashMap<>();
-		
+		int[] letterCount = new int[26];
+
 		try (BufferedReader in = new BufferedReader(new FileReader(filename))) {
 			String line;
 			while ((line = in.readLine()) != null) {
@@ -121,13 +110,8 @@ public class Counter {
 				for (String word : words) {
 					for (char c : word.toCharArray()) {
 						if (c >= 'a' && c <= 'z') {
-							if (letterCount.containsKey(c) == false) {
-								letterCount.put(c, 1);
-							}
-							else {
-								int count = letterCount.get(c);
-								letterCount.put(c, count + 1);
-							}
+							int index = c - 'a';
+							letterCount[index]++;
 						}
 					}
 				}
@@ -214,12 +198,12 @@ public class Counter {
 		 */
 
 		/* comment out the following two lines after changing the method */
-		Map<Character, Integer> count = countLetters(filename);
-		int countE = count.get('e');
+//		Map<Character, Integer> count = countLetters(filename);
+//		int countE = count.get('e');
 		
 		/* then uncomment the following two lines */
-		//int[] count = countLetters(filename);
-		//int countE = count[4];
+		int[] count = countLetters(filename);
+		int countE = count[4];
 
 		/* DO NOT CHANGE THE FOLLOWING TEST CODE */
 		if (countE != 13518) {
