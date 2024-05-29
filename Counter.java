@@ -13,9 +13,9 @@ public class Counter {
 	 * You should take advantage of the Set structure and remove any
 	 * unnecessary code!
 	 */
-	public static List<String> getWords(String filename) {
+	public static Set<String> getWords(String filename) {
 		
-		List<String> allWords = new ArrayList<>();
+		Set<String> allWords = new HashSet<>();
 		
 		try (BufferedReader in = new BufferedReader(new FileReader(filename))) {
 			String line;
@@ -23,7 +23,7 @@ public class Counter {
 				String[] words = line.split(" ");
 				for (String word : words) {
 					word = word.trim().toLowerCase();
-					if (word.length() > 0 && allWords.contains(word) == false) {
+					if (word.length() > 0) {
 						allWords.add(word);
 					}
 				}
@@ -157,10 +157,10 @@ public class Counter {
 		 */
 		
 		/* comment out the following line after changing the method */ 
-		List<String> words = getWords(filename);
+//		List<String> words = getWords(filename);
 		
 		/* then uncomment the following line */
-		//Set<String> words = getWords(filename);
+		Set<String> words = getWords(filename);
 		
 		/* DO NOT CHANGE THE FOLLOWING TEST CODE */
 		if (words == null) {
