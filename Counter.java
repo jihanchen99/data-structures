@@ -52,9 +52,8 @@ public class Counter {
 	 * instead of an array of Lists. The Map key should be the bigram, and the 
 	 * value should be the number of occurrences.
 	 */
-	public static List[] countBigrams(String filename) {
-		LinkedList<String> bigrams = new LinkedList<>();
-		LinkedList<Integer> count = new LinkedList<>();
+	public static HashMap<String, Integer> countBigrams(String filename) {
+		HashMap<String, Integer> result = new HashMap<>();
 		
 		try (BufferedReader in = new BufferedReader(new FileReader(filename))) {
 			String line;
@@ -67,21 +66,27 @@ public class Counter {
 						char c1 = word.charAt(i+1);
 						if (c0 >= 'a' && c0 <= 'z' && c1 >= 'a' && c1 <= 'z') {
 							String bigram = Character.toString(c0) + Character.toString(c1);
-							int index = bigrams.indexOf(bigram);
-							if (index == -1) {
-								bigrams.add(bigram);
-								count.add(1);
+							if (!result.containsKey(bigram)) {
+								int value = 1;
+								result.put(bigram, value);
+							} else {
+								result.put(bigram, result.get(bigram) + 1);
 							}
-							else {
-								count.set(index, count.get(index) + 1);
-							}
+//							int index = bigrams.indexOf(bigram);
+//							if (index == -1) {
+//								bigrams.add(bigram);
+//								count.add(1);
+//							}
+//							else {
+//								count.set(index, count.get(index) + 1);
+//							}
 						}
 					}
 				}				
 			}
-			LinkedList[] result = new LinkedList[2];
-			result[0] = bigrams;
-			result[1] = count;
+//			LinkedList[] result = new LinkedList[2];
+//			result[0] = bigrams;
+//			result[1] = count;
 			return result;
 			
 		}
@@ -182,14 +187,14 @@ public class Counter {
 		 */
 
 		/* comment out the following three lines after changing the method */
-		List[] bigramCount = countBigrams(filename);
-		int numBigrams = bigramCount[0].size(); 
-		int countAL = (Integer)(bigramCount[1].get(bigramCount[0].indexOf("al"))); 
+//		List[] bigramCount = countBigrams(filename);
+//		int numBigrams = bigramCount[0].size();
+//		int countAL = (Integer)(bigramCount[1].get(bigramCount[0].indexOf("al")));
 		
 		/* then uncomment the following three lines */
-		//Map<String, Integer> bigramCount = countBigrams(filename);
-		//int numBigrams = bigramCount.size();
-		//int countAL = bigramCount.get("al");
+		Map<String, Integer> bigramCount = countBigrams(filename);
+		int numBigrams = bigramCount.size();
+		int countAL = bigramCount.get("al");
 		
 		/* DO NOT CHANGE THE FOLLOWING TEST CODE */
 		if (numBigrams != 375) {
